@@ -30,16 +30,18 @@ jobs:
         with:
           node-version: 22
 
-      - name: Install Dependencies
-        run: npm install
+      - name: Configure npm and install dependencies
+        run: |
+          echo "legacy-peer-deps=true" > .npmrc
+          npm install --legacy-peer-deps
 
       - name: Build Web Assets
         run: npm run build
 
       - name: Setup Capacitor and Android Platform
         run: |
-          npm install @capacitor/core @capacitor/android
-          npm install -D @capacitor/cli
+          npm install --legacy-peer-deps @capacitor/core @capacitor/android
+          npm install --legacy-peer-deps -D @capacitor/cli
           npx cap init "Kira's To-Do-List" "com.kira.todolist" --web-dir dist
           npx cap add android
           npx cap sync android
