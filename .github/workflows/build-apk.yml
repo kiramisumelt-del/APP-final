@@ -9,7 +9,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Code
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
       - name: Extract zip if present
@@ -30,13 +30,10 @@ jobs:
         with:
           node-version: 22
 
-      - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
-
-      - name: Install NPM dependencies
+      - name: Install Dependencies
         run: npm install
 
-      - name: Build Web Application
+      - name: Build Web Assets
         run: npm run build
 
       - name: Setup Capacitor and Android Platform
@@ -53,7 +50,7 @@ jobs:
           chmod +x gradlew
           ./gradlew assembleDebug --no-daemon
 
-      - name: Upload APK Artifact
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: Kiras-To-Do-List-APK
